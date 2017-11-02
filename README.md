@@ -2,9 +2,9 @@
 
 本镜像基于 [minio](https://github.com/minio/minio) 官方 `Dockerfile` 修改而来，构建适用用于树莓派 3B 的 Docker 镜像。
 
-### 快速使用
+## 快速使用
 
-```
+```shell
 sudo docker run --name minio -d \
     -p 9000:9000 \
     -v /mnt/data:/data \
@@ -16,7 +16,7 @@ sudo docker run --name minio -d \
 
 > 注意：访问 minio 服务器需要通过 `Access Key` 和 `Secret Key` 验证身份。
 
-### 浏览器访问
+## 浏览器访问
 
 浏览器输入 `host-ip:9000` 即使用主机 IP 地址或域名的 6000 号端口通过浏览器访问 minio 服务。
 

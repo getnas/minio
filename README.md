@@ -20,4 +20,6 @@ sudo docker run --name minio -d \
 
 浏览器输入 `host-ip:9000` 即使用主机 IP 地址或域名的 6000 号端口通过浏览器访问 minio 服务。
 
+例如：局域网中使用树莓派的本地域名访问 minio 服务器 `http://raspberrypi.local:9000`
+
 更多详细用法请参考 `minio` 官方手册。

@@ -1,4 +1,4 @@
-FROM arm32v7/golang:alpine
+FROM arm32v6/golang:alpine
 
 LABEL maintainer="Herald Yu <yuhr123@gmail.com>"
 

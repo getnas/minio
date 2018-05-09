@@ -1,15 +1,15 @@
-# minio docker image for arm32v6 architecture
+# Minio 适用于树莓派的 Docker 镜像
 
 本镜像基于 [minio](https://github.com/minio/minio) 官方 `Dockerfile` 修改而来，构建适用用于树莓派 3B 的 Docker 镜像。
 
 ## 快速使用
 
 ```shell
-sudo docker run --name minio -d \
+sudo docker run -d --name minio \
     -p 9000:9000 \
     -v /mnt/data:/data \
     -v /mnt/config:/root/.minio \
-    getnas/minio:arm32v6 server /data
+    getnas/minio server /data
 ```
 
 `/mnt/data` 为本地映射到容器的数据存储目录，`/mnt/config` 为本地映射到容器的 minio 配置文件目录，容器运行后，可以在该目录中的 `config.json` 文件中找到程序初始生成的 `Access Key` 和 `Secret Key`。

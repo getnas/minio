@@ -1,26 +1,21 @@
-FROM arm32v6/golang:alpine
+FROM arm32v6/alpine
 
 LABEL maintainer="Herald Yu <yuhr123@gmail.com>"
 
-ENV GOPATH /go
-ENV PATH $PATH:$GOPATH/bin
-ENV CGO_ENABLED 0
+COPY dockerscripts/docker-entrypoint.sh dockerscripts/healthcheck.sh /usr/bin/
+
 ENV MINIO_UPDATE off
 ENV MINIO_ACCESS_KEY_FILE=access_key \
     MINIO_SECRET_KEY_FILE=secret_key
 
-WORKDIR /go/src/github.com/minio/
-
-COPY dockerscripts/docker-entrypoint.sh dockerscripts/healthcheck.sh /usr/bin/
-
-RUN  \
-     apk add --no-cache ca-certificates curl && \
-     apk add --no-cache --virtual .build-deps git && \
+RUN \
+     apk add --no-cache ca-certificates && \
+     apk add --no-cache --virtual .build-deps curl && \
      echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
-     go get -v -d github.com/minio/minio && \
-     cd /go/src/github.com/minio/minio && \
-     go install -v -ldflags "$(go run buildscripts/gen-ldflags.go)" && \
-     rm -rf /go/pkg /go/src /usr/local/go && apk del .build-deps
+     curl https://dl.minio.io/server/minio/release/linux-arm/minio > /usr/bin/minio && \
+     chmod +x /usr/bin/minio  && \
+     chmod +x /usr/bin/docker-entrypoint.sh && \
+     chmod +x /usr/bin/healthcheck.sh
 
 EXPOSE 9000
 
